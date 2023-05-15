@@ -12,40 +12,30 @@ create table klub_citatelja (
 	adresa varchar(50),
 	broj_telefona varchar(50)
 );
-
-create table citatelj (
-	id_citatelj int not null primary key auto_increment, 
+create table clan (
+	id_clan int not null primary key auto_increment, 
 	id_klub_citatelja int not null,
-	id_vlasnik int,
 	ime varchar(50),
 	prezime varchar(50),
 	oib varchar(11)
 );
-
 create table knjiga (
 	id_knjiga int not null primary key auto_increment, 
 	id_vlasnik int not null,
 	naziv_knjige varchar(50),
 	autor_knjige varchar(50)
 );
-
 create table citatelj_knjiga (
 	id_citatelj_knjiga int not null primary key auto_increment, 
 	id_citatelj int not null,
 	id_knjiga int not null	
 );
 
-alter table citatelj add foreign key (id_klub_citatelja)
+alter table clan add foreign key (id_klub_citatelja)
 references klub_citatelja(id_klub_citatelja);
 
-alter table citatelj add foreign key (id_vlasnik)
-references citatelj(id_citatelj);
-
 alter table knjiga add foreign key (id_vlasnik)
-references citatelj(id_vlasnik);
+references clan(id_clan);
 
 alter table citatelj_knjiga add foreign key (id_citatelj)
-references citatelj(id_citatelj);
-
-alter table citatelj_knjiga add foreign key (id_knjiga)
-references knjiga(id_knjiga);
+references clan(id_clan);
