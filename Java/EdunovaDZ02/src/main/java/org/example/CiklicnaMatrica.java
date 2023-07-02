@@ -43,30 +43,48 @@ public class CiklicnaMatrica {
             matrica[rows - 1][columns - i] = brojac++;
         }
 
-        while (brojac <= (rows * columns)) {
+        boolean provjeraBrojaca = true;
+
+        while (provjeraBrojaca) {
             for (int j = jCounter; j <= (rows - jBuffer); j++) {
-                matrica[rows - j][leftY] = brojac++;
+                if (brojac <= (rows * columns)) {
+                    matrica[rows - j][leftY] = brojac++;
+                } else {
+                    provjeraBrojaca = false;
+                }
             }
             leftY += 1;
             jCounter += 1;
             jBuffer += 1;
 
             for (int k = kCounter; k < (columns - kBuffer); k++) {
-                matrica[leftX][k] = brojac++;
+                if (brojac <= (rows * columns)) {
+                    matrica[leftX][k] = brojac++;
+                } else {
+                    provjeraBrojaca = false;
+                }
             }
             leftX += 1;
             kCounter += 1;
             kBuffer += 1;
 
             for (int l = lCounter; l < (rows - lBuffer); l++) {
-                matrica[l][rightY] = brojac++;
+                if (brojac <= (rows * columns)) {
+                    matrica[l][rightY] = brojac++;
+                } else {
+                    provjeraBrojaca = false;
+                }
             }
             rightY -= 1;
             lCounter += 1;
             lBuffer += 1;
 
             for (int m = mCounter; m > mBuffer; m--) {
-                matrica[rightX][m] = brojac++;
+                if (brojac <= (rows * columns)) {
+                    matrica[rightX][m] = brojac++;
+                } else {
+                    provjeraBrojaca = false;
+                }
             }
             rightX -= 1;
             mCounter -= 1;
