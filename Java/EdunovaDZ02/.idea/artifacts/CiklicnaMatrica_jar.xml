@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="CiklicnaMatrica:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/CiklicnaMatrica_jar</output-path>
+    <root id="archive" name="CiklicnaMatrica.jar">
+      <element id="module-output" name="CiklicnaMatrica" />
+    </root>
+  </artifact>
+</component>
