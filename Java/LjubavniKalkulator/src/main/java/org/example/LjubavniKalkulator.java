@@ -1,72 +1,106 @@
 package org.example;
 
-import java.util.Scanner;
-
 public class LjubavniKalkulator {
-    public static void ljubavniKalk(Scanner scanner) {
-        System.out.print("Unesite vaše ime: ");
-        String vlastitoIme = scanner.nextLine();
-        System.out.print("Unesite ime vašeg partnera: ");
-        String imePartnera = scanner.nextLine();
+    public static void ljubavniKalkulator(String firstName, String secondName) {
 
-        int[] kolicinaSlova = brojacSlova(strToField(vlastitoIme, imePartnera));
-        int offset = 2;
-        int[] rezultat = new int[kolicinaSlova.length];
-        while (rezultat.length > 2) {
-            rezultat = new int[kolicinaSlova.length - offset];
-            for (int i = 0; i < kolicinaSlova.length / 2; i++) {
+        int[] result = letterCount(strToField(firstName, secondName));
 
-            }
-
+        while (result.length >= 3) {
+            result = ljubavniKalkulator(result);
         }
 
-
-
-        for (int e : kolicinaSlova) {
+        for (int e : result) {
             System.out.print(e);
         }
     }
-    public static String[] strToField(String vlastitoIme, String imePartnera) {
-        int zbrojDuzineImena = vlastitoIme.length() + imePartnera.length();
-        String[] nizImena;
+    // Metoda "strToField" od pohranjenih imena vraća String[] koja sadrži oba spomenuta
+    public static String[] strToField(String firstName, String secondName) {
+        int nameLen = firstName.length() + secondName.length();
+        String[] nameField;
 
-        if (zbrojDuzineImena % 2 == 0) {
-            nizImena = new String[zbrojDuzineImena];
+        if (nameLen % 2 == 0) {
+            nameField = new String[nameLen];
         } else {
-            nizImena = new String[zbrojDuzineImena + 1];
+            nameField = new String[nameLen + 1];
         }
 
-        String imeTemp = (zbrojDuzineImena % 2 == 0) ? vlastitoIme + imePartnera : vlastitoIme + " " + imePartnera;
+        String imeTemp = (nameLen % 2 == 0) ? firstName + secondName : firstName + " " + secondName;
+
         for (int i = 0; i < imeTemp.length(); i++) {
-            nizImena[i] = String.valueOf(imeTemp.charAt(i));
+            nameField[i] = String.valueOf(imeTemp.charAt(i));
         }
-        return nizImena;
+        return nameField;
     }
-    public static int[] brojacSlova(String[] nizImena) {
-        int brojacSlova = 0;
-        int brojacPonavljanja = 0;
+    // Metoda "letterCount" broji ponavljanje pojedinih slova te vraća niz koji predstavlja ista ponavljanja
+    public static int[] letterCount(String[] nameField) {
+        int letterCount = 0;
+        int loopCount = 0;
 
-        int[] kolicinaSlovaTemp = new int[nizImena.length];
+        int[] countField = new int[nameField.length];
 
-        for (String slovoVlastitoIme : nizImena) {
-            for (String slovoImePartnera : nizImena) {
-                if (slovoVlastitoIme.equals(slovoImePartnera)) {
-                    brojacSlova+=1;
+        for (String firstNameLetter : nameField) {
+            for (String secondNameLetter : nameField) {
+                if (firstNameLetter.equals(secondNameLetter)) {
+                    letterCount+=1;
                 }
             }
-            if(slovoVlastitoIme.equals(" ")) {
-                kolicinaSlovaTemp[brojacPonavljanja] = 0;
+            if(firstNameLetter.equals(" ")) {
+                countField[loopCount] = 0;
             } else {
-                kolicinaSlovaTemp[brojacPonavljanja] = brojacSlova;
+                countField[loopCount] = letterCount;
             }
-            brojacSlova = 0;
-            brojacPonavljanja++;
+            letterCount = 0;
+            loopCount++;
         }
-        return kolicinaSlovaTemp;
+        return countField;
     }
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        ljubavniKalk(scanner);
+    public static int[] ljubavniKalkulator(int[] tempCountField) {
+        int[] tempRes = new int[tempCountField.length / 2];
+        int buffer = tempCountField.length - 1;
+        boolean doubleDigit = false;
+        int[] tempResDoubleDigit;
+        int[] tempResOdd;
+        StringBuilder stringBuilder;
+
+        // Zbrajanje prve i zadnje vrijednosti pohranjenih u nizu integer-a
+        for (int i = 0; i < tempCountField.length / 2; i++) {
+            tempRes[i] = tempCountField[i] + tempCountField[buffer];
+            buffer--;
+        }
+        // Provjera dvoznamenkastih brojeva
+        for (int e : tempRes) {
+            if (e > 9) {
+                doubleDigit = true;
+            }
+        }
+        // U slučaju da postoji dvoznamenkasti broj, isti se dijeli na dva jednoznamenkasta broja
+        if (doubleDigit) {
+            stringBuilder = new StringBuilder();
+            tempResDoubleDigit = new int[tempRes.length + 1];
+            for (int e : tempRes) {
+                stringBuilder.append(e);
+            }
+            for (int j = 0; j < stringBuilder.length(); j++) {
+                tempResDoubleDigit[j] = Integer.parseInt(String.valueOf(stringBuilder.charAt(j)));
+            }
+            tempRes = tempResDoubleDigit;
+        }
+        // Provjera duzine niza, u slučaju ako je int[].length neparan, dodaje se nula na prikladno mjesto
+        if (tempRes.length % 2 != 0) {
+            tempResOdd = new int[tempRes.length + 1];
+            int counter = 0;
+            for (int i = 0; i < tempResOdd.length; i++) {
+                if (i == ((int) Math.ceil(1.0 * tempRes.length / 2))) {
+                    tempResOdd[i] = 0;
+                } else {
+                    tempResOdd[i] = tempRes[counter];
+                    counter++;
+                }
+
+            }
+            tempRes = tempResOdd;
+        }
+        return tempRes;
     }
 }
