@@ -2,6 +2,7 @@ package org.example;
 
 public class LjubavniKalkulator {
     public static void ljubavniKalkulator(String firstName, String secondName) {
+        StringBuilder percentage = new StringBuilder();
 
         int[] result = letterCount(strToField(firstName, secondName));
 
@@ -10,10 +11,12 @@ public class LjubavniKalkulator {
         }
 
         for (int e : result) {
-            System.out.print(e);
+            percentage.append(e);
         }
+
+        System.out.println(firstName + " i " + secondName + " se vole " + percentage + "%");
     }
-    // Metoda "strToField" od pohranjenih imena vraća String[] koja sadrži oba spomenuta
+    // Metoda "strToField" od pohranjenih imena vraća String[] koje sadrži oba spomenuta
     public static String[] strToField(String firstName, String secondName) {
         int nameLen = firstName.length() + secondName.length();
         String[] nameField;
@@ -86,7 +89,7 @@ public class LjubavniKalkulator {
             }
             tempRes = tempResDoubleDigit;
         }
-        // Provjera duzine niza, u slučaju ako je int[].length neparan, dodaje se nula na prikladno mjesto
+        // Provjera dužine niza, u slučaju ako je int[].length neparan, dodaje se nula na prikladno mjesto
         if (tempRes.length % 2 != 0) {
             tempResOdd = new int[tempRes.length + 1];
             int counter = 0;
@@ -97,7 +100,6 @@ public class LjubavniKalkulator {
                     tempResOdd[i] = tempRes[counter];
                     counter++;
                 }
-
             }
             tempRes = tempResOdd;
         }
