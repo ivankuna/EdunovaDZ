@@ -2,7 +2,7 @@ package org.example;
 
 import java.util.Scanner;
 
-import static org.example.LjubavniKalkulator.ljubavniKalkulator;
+import static org.example.LjubavniKalkulator.start;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,6 +13,6 @@ public class Main {
         System.out.print("Unesite ime vašeg partnera: ");
         String secondName = scanner.nextLine();
 
-        ljubavniKalkulator(firstName, secondName);
+        start(firstName, secondName);
     }
 }

@@ -1,14 +1,12 @@
 package org.example;
 
 public class LjubavniKalkulator {
-    public static void ljubavniKalkulator(String firstName, String secondName) {
+    public static void start(String firstName, String secondName) {
         StringBuilder percentage = new StringBuilder();
 
         int[] result = letterCount(strToField(firstName, secondName));
-
-        while (result.length >= 3) {
-            result = ljubavniKalkulator(result);
-        }
+        
+        result = ljubavniKalkulator(result);
 
         for (int e : result) {
             percentage.append(e);
@@ -103,6 +101,10 @@ public class LjubavniKalkulator {
             }
             tempRes = tempResOdd;
         }
-        return tempRes;
+        if (tempRes.length < 3) {
+            return tempRes;
+        } else {
+            return ljubavniKalkulator(tempRes);
+        }
     }
 }
