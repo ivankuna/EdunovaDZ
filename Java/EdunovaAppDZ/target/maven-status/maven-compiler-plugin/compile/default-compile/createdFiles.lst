@@ -1,0 +1,9 @@
+edunova\model\Entitet.class
+edunova\util\HibernateUtil.class
+edunova\model\Smjer.class
+edunova\Start.class
+edunova\model\Osoba.class
+edunova\model\Predavac.class
+edunova\model\Polaznik.class
+edunova\util\PocetniInsert.class
+edunova\model\Grupa.class
